@@ -9,7 +9,7 @@ import {
   Container,
   TextField,
 } from "@material-ui/core";
-import { useHistory, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyle from "./styles";
@@ -19,16 +19,42 @@ import Input from "./Input";
 import Icon from "./Icon";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {AUTH} from '../../redux/constants/actionsType'
+import { AUTH } from "../../redux/constants/actionsType";
+import {signin , signup} from '../../redux/actions/Auth'
+import { GOOGLE_API_KEY } from "../../constants";
+
 const Auth = () => {
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
   const [showPassword, setshowPassword] = useState(false);
   const [isSignUp, setisSignUp] = useState(false);
+  const [formData, setformData] = useState(initialState);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyle();
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(isSignUp)
+    {
+          dispatch(signup(formData , navigate))
+    }
+    else 
+    {
+      dispatch(signin(formData , navigate))
+
+    }
+  };
+
+  const handleChange = (e) => {
+    setformData({...formData , [e.target.name]:e.target.value})
+  };
 
   const handleShowPassword = () => {
     setshowPassword((prevShowPassword) => !prevShowPassword);
@@ -43,9 +69,9 @@ const Auth = () => {
     const result = res.profileObj;
     const token = res.tokenId;
     try {
-      if (result && token){ 
-      dispatch({ type: AUTH, data: { result, token } });
-        navigate('/')
+      if (result && token) {
+        dispatch({ type: AUTH, data: { result, token } });
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +141,7 @@ const Auth = () => {
               {isSignUp ? "Sign Up" : "Sign In"}
             </Button>
             <GoogleLogin
-              clientId="API KEY"
+              clientId={GOOGLE_API_KEY}
               render={(renderProps) => (
                 <Button
                   className={classes.googleButton}
@@ -151,7 +177,7 @@ const Auth = () => {
 
             <Grid container justifyContent="center">
               <Grid item>
-                <Button onClick={switchMode}>
+                <Button style={{color:"dark"}} onClick={switchMode}>
                   {isSignUp
                     ? "Already have an account ? Sign In"
                     : "Don't have an account Sign Up"}

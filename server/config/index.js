@@ -6,4 +6,5 @@ export const
         PORT,
         CONNECTION_URL,
         URL,
+        userSecretCode,
     } = process.env;

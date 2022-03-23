@@ -10,7 +10,8 @@
 
 # production
 /build
-
+# constants 
+/constants/index.js
 # misc
 .DS_Store
 .env.local

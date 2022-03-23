@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core/";
 import { deletePost, likePost } from "../../../redux/actions/posts";
 
-const Post = ({ post, setCurrentId,setshowForm }) => {
+const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
 
   const classes = useStyle();
@@ -27,7 +27,7 @@ const Post = ({ post, setCurrentId,setshowForm }) => {
         title={post.title}
       ></CardMedia>
       <div className={classes.overlay}>
-        <Typography variant="h6">{post.creator}</Typography>
+        <Typography variant="h6">{post.name}</Typography>
         <Typography variant="body2">
           {moment(post.createdAt).fromNow()}
         </Typography>
@@ -36,7 +36,7 @@ const Post = ({ post, setCurrentId,setshowForm }) => {
         <Button
           style={{ color: "white" }}
           size="small"
-          onClick={() => {setCurrentId(post._id); setshowForm(true)}}
+          onClick={() => setCurrentId(post._id)}
         >
           <MoreHorizIcon fontSize="small" />
         </Button>
