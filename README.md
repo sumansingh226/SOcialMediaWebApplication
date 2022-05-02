@@ -3,4 +3,8 @@ This is a social Media Web Application using (MongoDB , React.Js , Express , Nod
 go to client npm install/yarn 
 go to server and npm i 
 and put google api key inside
-set env varible
+set env varible 
+
+websitelink : 
+https://socialmediawebapplication.herokuapp.com/ 
+
